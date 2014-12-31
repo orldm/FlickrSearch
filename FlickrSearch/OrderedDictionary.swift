@@ -16,5 +16,21 @@ struct OrderedDictionary<KeyType: Hashable, ValueType> {
     var array = ArrayType()
     var dictionary = DictionaryType()
     
+    mutating func insert(value: ValueType, forKey key: KeyType, atIndex index: Int) -> ValueType? {
+        
+        var adjustedIndex = index
+        let existingValue = self.dictionary[key]
+        if existingValue != nil {
+            let existingIndex = find(self.array, key)!
+            if existingIndex < index {
+                adjustedIndex--
+            }
+            self.array.removeAtIndex(existingIndex)
+        }
+        self.array.insert(key, atIndex: adjustedIndex)
+        self.dictionary[key] = value
+        return existingValue
+    }
+    
     
 }
