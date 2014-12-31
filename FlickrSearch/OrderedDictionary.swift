@@ -8,6 +8,13 @@
 
 import Foundation
 
-struct OrderedDictionary<KeyType, ValueType> {
+struct OrderedDictionary<KeyType: Hashable, ValueType> {
+    
+    typealias ArrayType = [KeyType]
+    typealias DictionaryType = [KeyType: ValueType]
+    
+    var array = ArrayType()
+    var dictionary = DictionaryType()
+    
     
 }
