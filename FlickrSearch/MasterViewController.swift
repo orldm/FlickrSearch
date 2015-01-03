@@ -24,8 +24,10 @@ import UIKit
 
 class MasterViewController: UIViewController {
   
-  @IBOutlet var tableView: UITableView!
-  @IBOutlet var searchBar: UISearchBar!
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var searchBar: UISearchBar!
+    var searches = OrderedDictionary<String, [Flickr.Photo]>()
+    
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "showDetail" {
@@ -47,7 +49,7 @@ extension MasterViewController: UITableViewDataSource, UITableViewDelegate {
   }
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 0
+    return self.searches.count
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
