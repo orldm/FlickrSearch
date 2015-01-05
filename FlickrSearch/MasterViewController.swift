@@ -54,6 +54,8 @@ extension MasterViewController: UITableViewDataSource, UITableViewDelegate {
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+    let (term, photos) = self.searches[indexPath.row]
+    cell.textLabel!.text = "\(term) (\(photos.count))"
     return cell
   }
   
@@ -69,6 +71,20 @@ extension MasterViewController: UITableViewDataSource, UITableViewDelegate {
 extension MasterViewController: UISearchBarDelegate {
   
   func searchBarSearchButtonClicked(searchBar: UISearchBar!) {
+    
+    searchBar.resignFirstResponder()
+    let searchItem = searchBar.text
+    Flickr.search(searchItem) {
+        switch ($0) {
+        case .Error:
+            break
+        case .Results(let results):
+            self.searches.insert(results, forKey: searchItem, atIndex: 0)
+        
+        self.tableView.reloadData()
+        }
+    }
+    
   }
   
 }
