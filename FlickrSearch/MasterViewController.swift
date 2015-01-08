@@ -43,6 +43,7 @@ class MasterViewController: UIViewController {
     if let selectedIndexPath = self.tableView.indexPathForSelectedRow() {
       self.tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
     }
+    self.navigationItem.leftBarButtonItem = self.editButtonItem()
   }
 }
 
